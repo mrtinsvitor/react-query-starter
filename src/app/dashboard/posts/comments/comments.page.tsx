@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 
 export default function Comments() {
+  const { slug } = useParams();
+
   const { data: comments, isLoading } = useQuery({
-    queryKey: ["post-comments"],
+    queryKey: ["post-comments", slug],
     queryFn: async () => {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/comments?postId=1"
+        `https://jsonplaceholder.typicode.com/comments?postId=${slug}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");

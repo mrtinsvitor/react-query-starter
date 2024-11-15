@@ -1,19 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
+import { useFetchPostDetails } from "../../../../hooks/useFetchPostDetails";
 
 export default function PostDetails() {
-  const { data: post, isLoading } = useQuery({
-    queryKey: ["post-detail"],
-    queryFn: async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts/1"
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    },
-  });
+  const { slug } = useParams();
+
+  const { data: post, isLoading } = useFetchPostDetails(slug || "");
 
   const isCommentsActive = window.location.pathname.includes("comments");
   const commentsLinkText = isCommentsActive ? "Hide Comments" : "View Comments";
@@ -25,7 +16,7 @@ export default function PostDetails() {
       ) : (
         <>
           <h3 className="text-xl font-semibold">{post?.title}</h3>
-          <p className="mt-2">{post?.body}</p>
+          <p className="mt-2">{post?.content}</p>
         </>
       )}
       <Link

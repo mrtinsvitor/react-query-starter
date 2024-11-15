@@ -3,13 +3,14 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Welcome from "./App.tsx";
-import Comments from "./app/dashboard/posts/comments/comments.page.tsx";
 import DashboardLayout from "./app/dashboard/dashboard.layout.tsx";
+import AddPost from "./app/dashboard/posts/add-post.page.tsx";
+import Comments from "./app/dashboard/posts/comments/comments.page.tsx";
 import PostDetails from "./app/dashboard/posts/post-details/posts-details.page.tsx";
 import Posts from "./app/dashboard/posts/posts.page.tsx";
-import "./index.css";
-import UsersList from "./app/dashboard/users/users.page.tsx";
 import UserDetails from "./app/dashboard/users/user-details/user-details.page.tsx";
+import UsersList from "./app/dashboard/users/users.page.tsx";
+import "./index.css";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "posts",
         element: <Posts />,
+      },
+      {
+        path: "posts/add-post",
+        element: <AddPost />,
       },
       {
         path: "posts/:slug",
